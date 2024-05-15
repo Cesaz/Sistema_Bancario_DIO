@@ -18,18 +18,24 @@ while True:
     opcao = input(menu)
 
     if opcao == "1":
-        valor_escolhido = float(input("DIGITE O VALOR DO DEPOSITO: "))
+        valor_escolhido = input("DIGITE O VALOR DO DEPOSITO: ")
+        valor_escolhido = valor_escolhido.replace(',', '.')
+        valor_escolhido = float(valor_escolhido)
 
         if valor_escolhido > 0:
             saldo += valor_escolhido
             extrato += f"Depósito: R$ {valor_escolhido:.2f}\n"
+            print(f"DEPÓSITO DE R${valor_escolhido:.2f} REALIZADO COM SUCESSO")
 
         else:
             print("O valor informado é inválido. Tente Novamente")
 
 
     elif opcao == "2":
-        valor_escolhido = float(input("QUANTO GOSTARIA DE SACAR?: "))
+        valor_escolhido = input("QUANTO GOSTARIA DE SACAR?: ")
+        valor_escolhido = valor_escolhido.replace(',', '.')
+        valor_escolhido = float(valor_escolhido)
+
         saldo_insuficiente = valor_escolhido > saldo
         limite_insuficiente = valor_escolhido > limite
         saque_insuficiente = numero_saque >= LIMITE_SAQUES
@@ -47,12 +53,21 @@ while True:
             saldo -= valor_escolhido
             extrato += f"Saque: R$ {valor_escolhido:.2f}\n"
             numero_saque += 1
+            print(f"SAQUE NO VALOR DE R${valor_escolhido:.2f} REALIZADO COM SUCESSO")
 
         else:
             print("ALGO DEU ERRADO! TENTE NOVAMENTE.")
 
     elif opcao == "3":
-        print("EXTRATO")
+        if extrato == "":
+            print("Não foram realizadas movimentações.")
+
+        else:
+            print(extrato)
+            print("=======================")
+            print(f"SALDO TOTAL => R$ {saldo:.2f}") 
+            print("=======================")
+
 
     elif opcao == "4":
         break
